@@ -55,7 +55,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
 
   void _restartScanner() async {
     await controller?.stopCamera();
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 200));
     await controller?.resumeCamera();
   }
 
@@ -65,9 +65,6 @@ class _ScannerScreenState extends State<ScannerScreen> {
     setState(() {
       isProcessing = true;
     });
-    
-    // Pausar la cámara para evitar múltiples escaneos
-    _pauseCamera();
 
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final user = userProvider.user;
@@ -77,7 +74,6 @@ class _ScannerScreenState extends State<ScannerScreen> {
       setState(() {
         isProcessing = false;
       });
-      _restartScanner();
       return;
     }
 
@@ -115,13 +111,11 @@ class _ScannerScreenState extends State<ScannerScreen> {
     } catch (e) {
       _showErrorDialog('Error: $e');
     } finally {
-      // Esperar un poco antes de permitir otro escaneo
-      await Future.delayed(const Duration(seconds: 2));
+      // Breve pausa antes de permitir otro escaneo
+      await Future.delayed(const Duration(milliseconds: 500));
       setState(() {
         isProcessing = false;
       });
-      // Reiniciar completamente el scanner para permitir nuevos escaneos
-      _restartScanner();
     }
   }
 
