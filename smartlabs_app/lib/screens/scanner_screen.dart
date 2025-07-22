@@ -4,6 +4,8 @@ import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../providers/user_provider.dart';
 import '../services/api_service.dart';
+import '../constants/app_colors.dart';
+import '../constants/app_text_styles.dart';
 import 'login_screen.dart';
 
 class ScannerScreen extends StatefulWidget {
@@ -123,12 +125,12 @@ class _ScannerScreenState extends State<ScannerScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(title),
-        content: Text(message),
+        title: Text(title, style: AppTextStyles.h3),
+        content: Text(message, style: AppTextStyles.bodyMedium),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('OK'),
+            child: Text('OK', style: AppTextStyles.buttonSecondary),
           ),
         ],
       ),
@@ -139,12 +141,12 @@ class _ScannerScreenState extends State<ScannerScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Error'),
-        content: Text(message),
+        title: Text('Error', style: AppTextStyles.h3),
+        content: Text(message, style: AppTextStyles.bodyMedium),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('OK'),
+            child: Text('OK', style: AppTextStyles.buttonSecondary),
           ),
         ],
       ),
@@ -162,12 +164,13 @@ class _ScannerScreenState extends State<ScannerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SmartLabs Scanner'),
-        backgroundColor: Colors.blue[600],
-        foregroundColor: Colors.white,
+        title: Text('SmartLabs Scanner', style: AppTextStyles.appBarTitle),
+        backgroundColor: AppColors.azulTec,
+        foregroundColor: AppColors.blanco,
+        elevation: 2,
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout),
+            icon: Icon(Icons.logout, color: AppColors.blanco),
             onPressed: _logout,
           ),
         ],
@@ -177,8 +180,11 @@ class _ScannerScreenState extends State<ScannerScreen> {
           final user = userProvider.user;
           
           if (user == null) {
-            return const Center(
-              child: Text('Error: Usuario no encontrado'),
+            return Center(
+              child: Text(
+                'Error: Usuario no encontrado',
+                style: AppTextStyles.error,
+              ),
             );
           }
 
@@ -188,31 +194,30 @@ class _ScannerScreenState extends State<ScannerScreen> {
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
-                color: Colors.blue[50],
+                decoration: BoxDecoration(
+                  color: AppColors.fondoClaro,
+                  border: Border(
+                    bottom: BorderSide(
+                      color: AppColors.bordePrimario,
+                      width: 1,
+                    ),
+                  ),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Bienvenido, ${user.name}',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: AppTextStyles.h3,
                     ),
                     const SizedBox(height: 4),
                     Text(
                       'Correo: ${user.email}',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
-                      ),
+                      style: AppTextStyles.bodySmall,
                     ),
                     Text(
                       'Matrícula: ${user.registration}',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
-                      ),
+                      style: AppTextStyles.bodySmall,
                     ),
                   ],
                 ),
@@ -221,12 +226,18 @@ class _ScannerScreenState extends State<ScannerScreen> {
               // Switch para modo
               Container(
                 padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppColors.blanco,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       'Herramientas',
-                      style: TextStyle(fontSize: 16),
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        color: isToolsMode ? AppColors.azulTec : AppColors.textoSecundario,
+                        fontWeight: isToolsMode ? FontWeight.w600 : FontWeight.w400,
+                      ),
                     ),
                     const SizedBox(width: 16),
                     Switch(
@@ -236,12 +247,17 @@ class _ScannerScreenState extends State<ScannerScreen> {
                           isToolsMode = !value;
                         });
                       },
-                      activeColor: Colors.blue[600],
+                      activeColor: AppColors.azulTec,
+                      inactiveThumbColor: AppColors.azulTec,
+                      inactiveTrackColor: AppColors.azulTec.withOpacity(0.3),
                     ),
                     const SizedBox(width: 16),
-                    const Text(
+                    Text(
                       'Equipos',
-                      style: TextStyle(fontSize: 16),
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        color: !isToolsMode ? AppColors.azulTec : AppColors.textoSecundario,
+                        fontWeight: !isToolsMode ? FontWeight.w600 : FontWeight.w400,
+                      ),
                     ),
                   ],
                 ),
@@ -250,12 +266,15 @@ class _ScannerScreenState extends State<ScannerScreen> {
               // Indicador de modo actual
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Text(
-                  'Modo actual: ${isToolsMode ? "Herramientas" : "Equipos"}',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue[600],
+                decoration: BoxDecoration(
+                  color: AppColors.azulTec.withOpacity(0.1),
+                ),
+                child: Center(
+                  child: Text(
+                    'Modo actual: ${isToolsMode ? "Herramientas" : "Equipos"}',
+                    style: AppTextStyles.bodyBold.copyWith(
+                      color: AppColors.azulTec,
+                    ),
                   ),
                 ),
               ),
@@ -266,7 +285,15 @@ class _ScannerScreenState extends State<ScannerScreen> {
                   margin: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.blue, width: 2),
+                    border: Border.all(color: AppColors.azulTec, width: 2),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.azulTec.withOpacity(0.1),
+                        spreadRadius: 2,
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
@@ -276,7 +303,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                           key: qrKey,
                           onQRViewCreated: _onQRViewCreated,
                           overlay: QrScannerOverlayShape(
-                            borderColor: Colors.white,
+                            borderColor: AppColors.blanco,
                             borderRadius: 10,
                             borderLength: 30,
                             borderWidth: 4,
@@ -299,8 +326,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
                                     gradient: LinearGradient(
                                       colors: [
                                         Colors.transparent,
-                                        Colors.red,
-                                        Colors.red,
+                                        AppColors.azulTec,
+                                        AppColors.azulTec,
                                         Colors.transparent,
                                       ],
                                     ),
@@ -318,13 +345,16 @@ class _ScannerScreenState extends State<ScannerScreen> {
               // Instrucciones
               Container(
                 padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppColors.blanco,
+                ),
                 child: Text(
                   isProcessing
                       ? 'Procesando...'
                       : 'Apunta la cámara hacia un código QR para escanearlo',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: isProcessing ? AppColors.azulTec : AppColors.textoSecundario,
+                    fontWeight: isProcessing ? FontWeight.w600 : FontWeight.w400,
                   ),
                   textAlign: TextAlign.center,
                 ),

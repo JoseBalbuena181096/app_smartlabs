@@ -1,0 +1,47 @@
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Base del brazo robótico -->
+  <rect x="100" y="160" width="100" height="30" rx="5" fill="#1e3a8a" stroke="#1e40af" stroke-width="2"/>
+  
+  <!-- Brazo principal -->
+  <rect x="140" y="80" width="20" height="80" rx="10" fill="#e5e7eb" stroke="#374151" stroke-width="2"/>
+  
+  <!-- Articulación 1 -->
+  <circle cx="150" cy="80" r="12" fill="#1e3a8a"/>
+  <circle cx="150" cy="80" r="6" fill="#374151"/>
+  
+  <!-- Brazo secundario -->
+  <rect x="120" y="40" width="60" height="15" rx="7" fill="#e5e7eb" stroke="#374151" stroke-width="2" transform="rotate(-30 150 47)"/>
+  
+  <!-- Articulación 2 -->
+  <circle cx="120" cy="50" r="10" fill="#1e3a8a"/>
+  <circle cx="120" cy="50" r="5" fill="#374151"/>
+  
+  <!-- Garra/Herramienta -->
+  <g transform="translate(105, 35)">
+    <!-- Parte superior de la garra -->
+    <path d="M 0 0 L 15 -5 L 20 0 L 15 5 Z" fill="#374151"/>
+    <!-- Parte inferior de la garra -->
+    <path d="M 0 10 L 15 15 L 20 10 L 15 5 Z" fill="#374151"/>
+    <!-- Conector -->
+    <rect x="15" y="0" width="5" height="10" fill="#6b7280"/>
+  </g>
+  
+  <!-- Articulación 3 -->
+  <circle cx="180" cy="47" r="8" fill="#1e3a8a"/>
+  <circle cx="180" cy="47" r="4" fill="#374151"/>
+  
+  <!-- Texto SMARTLABS -->
+  <text x="150" y="130" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#1e3a8a">
+    SMARTLABS
+  </text>
+  
+  <!-- Detalles decorativos -->
+  <circle cx="90" cy="30" r="3" fill="#1e3a8a" opacity="0.6"/>
+  <circle cx="210" cy="25" r="4" fill="#1e3a8a" opacity="0.4"/>
+  <circle cx="80" cy="60" r="2" fill="#1e3a8a" opacity="0.5"/>
+  <circle cx="220" cy="55" r="3" fill="#1e3a8a" opacity="0.3"/>
+  
+  <!-- Líneas de conexión decorativas -->
+  <line x1="90" y1="30" x2="105" y2="35" stroke="#1e3a8a" stroke-width="1" opacity="0.3"/>
+  <line x1="210" y1="25" x2="185" y2="40" stroke="#1e3a8a" stroke-width="1" opacity="0.3"/>
+</svg>
