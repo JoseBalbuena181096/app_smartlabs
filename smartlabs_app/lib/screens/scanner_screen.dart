@@ -20,6 +20,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   bool isToolsMode = true; // true = herramientas, false = equipos
   bool isProcessing = false;
+  String? lastScannedCode;
+  DateTime? lastScanTime;
 
   @override
   void initState() {
@@ -42,6 +44,17 @@ class _ScannerScreenState extends State<ScannerScreen> {
   void _setupScannerStream() {
     controller?.scannedDataStream.listen((scanData) {
       if (!isProcessing && scanData.code != null) {
+        // Evitar escaneos duplicados muy rápidos del mismo código
+        // pero solo durante el procesamiento, no después de completar una operación
+        final now = DateTime.now();
+        if (lastScannedCode == scanData.code && 
+            lastScanTime != null && 
+            now.difference(lastScanTime!).inMilliseconds < 1000) {
+          return; // Ignorar si es el mismo código escaneado hace menos de 1 segundo
+        }
+        
+        lastScannedCode = scanData.code;
+        lastScanTime = now;
         _handleQRCode(scanData.code!);
       }
     });
@@ -64,6 +77,9 @@ class _ScannerScreenState extends State<ScannerScreen> {
   Future<void> _handleQRCode(String qrCode) async {
     if (isProcessing) return;
     
+    // Pausar la cámara inmediatamente para evitar múltiples escaneos
+    _pauseCamera();
+    
     setState(() {
       isProcessing = true;
     });
@@ -73,60 +89,296 @@ class _ScannerScreenState extends State<ScannerScreen> {
 
     if (user == null) {
       _showErrorDialog('Error: Usuario no encontrado');
-      setState(() {
-        isProcessing = false;
-      });
+      _resetScanner();
       return;
     }
 
     try {
       if (isToolsMode) {
-        // Modo herramientas - simular préstamo
-        final response = await ApiService.simulateLoan(user.registration, qrCode);
-        _showSuccessDialog('Préstamo simulado', response['message'] ?? 'Operación exitosa');
+        // Modo herramientas - controlar préstamo
+        await _handleToolsMode(user, qrCode);
       } else {
         // Modo equipos - controlar dispositivo
-        final statusResponse = await ApiService.getDeviceStatus(qrCode);
-        
-        if (statusResponse['success'] == true) {
-          final deviceData = statusResponse['data'];
-          final currentState = deviceData['state'] as bool;
-          final newAction = currentState ? 0 : 1; // Invertir estado
-          
-          final controlResponse = await ApiService.controlDevice(
-            user.registration,
-            qrCode,
-            newAction,
-          );
-          
-          final deviceAlias = deviceData['device_alias'] ?? 'Dispositivo';
-          final newStatus = newAction == 1 ? 'Encendido' : 'Apagado';
-          
-          _showSuccessDialog(
-            'Control de Equipo',
-            '$deviceAlias\nEstado: $newStatus',
-          );
-        } else {
-          _showErrorDialog('Error al obtener estado del dispositivo');
-        }
+        await _handleEquipmentMode(user, qrCode);
       }
     } catch (e) {
-      _showErrorDialog('Error: $e');
+      print('Error en _handleQRCode: $e');
+      _showErrorDialog('Error de conexión: Verifique su conexión a internet');
+      _resetScanner();
+    }
+    // Removido el finally que causaba doble reset
+  }
+  
+  Future<void> _handleToolsMode(user, String qrCode) async {
+    try {
+      // Obtener el estado actual de préstamo
+      final statusResponse = await ApiService.getLoanStatus().timeout(
+        const Duration(seconds: 10),
+        onTimeout: () => throw Exception('Timeout al obtener estado de préstamo'),
+      );
+      
+      if (statusResponse['success'] == true) {
+        final loanData = statusResponse['data'];
+        final sessionActive = loanData['session_active'] as bool;
+        // La acción es la inversa del estado de sesión: si hay sesión activa (true) -> devolver (0), si no hay sesión (false) -> prestar (1)
+        final action = sessionActive ? 0 : 1;
+        final userName = loanData['user'] ?? 'Usuario';
+        
+        print('QR escaneado: $qrCode');
+        print('Estado session_active: $sessionActive');
+        print('Acción determinada: $action (${action == 0 ? "Devolución" : "Préstamo"})');
+        
+        // Mostrar diálogo de confirmación
+        _showConfirmationDialog(
+          qrCode: qrCode,
+          sessionActive: sessionActive,
+          action: action,
+          userName: userName,
+          user: user,
+        );
+      } else {
+        print('Error al obtener estado: ${statusResponse['message']}');
+        _showErrorDialog(statusResponse['message'] ?? 'Error al obtener estado de préstamo');
+      }
+    } catch (e) {
+      print('Error en _handleToolsMode: $e');
+      rethrow;
+    }
+  }
+  
+
+  Future<void> _handleEquipmentMode(user, String qrCode) async {
+    try {
+      final statusResponse = await ApiService.getDeviceStatus(qrCode).timeout(
+        const Duration(seconds: 10),
+        onTimeout: () => throw Exception('Timeout al obtener estado del dispositivo'),
+      );
+      
+      if (statusResponse['success'] == true) {
+        final deviceData = statusResponse['data'];
+        final currentState = deviceData['state'] as bool;
+        final newAction = currentState ? 0 : 1;
+        final deviceAlias = deviceData['alias'] ?? qrCode;
+        
+        print('Estado actual del dispositivo $qrCode: ${currentState ? "Encendido" : "Apagado"}, acción a realizar: ${newAction == 1 ? "Encender" : "Apagar"}');
+        
+        // Mostrar diálogo de confirmación antes de ejecutar la acción
+        _showEquipmentConfirmationDialog(
+          qrCode: qrCode,
+          currentState: currentState,
+          action: newAction,
+          deviceAlias: deviceAlias,
+          user: user,
+        );
+      } else {
+        _showErrorDialog('Error al obtener estado del dispositivo');
+      }
+    } catch (e) {
+      print('Error en _handleEquipmentMode: $e');
+      _showErrorDialog('Error de conexión: Verifique su conexión a internet');
+      _resetScanner();
+    }
+  }
+  
+  void _resetScanner() async {
+    // Pausa más larga antes de reactivar el escáner
+    await Future.delayed(const Duration(milliseconds: 1000));
+    setState(() {
+      isProcessing = false;
+    });
+    // Limpiar el último código escaneado para permitir escanear el mismo código
+    // después de completar una operación
+    lastScannedCode = null;
+    lastScanTime = null;
+    _resumeCamera();
+  }
+
+  void _showConfirmationDialog({
+    required String qrCode,
+    required bool sessionActive,
+    required int action,
+    required String userName,
+    required dynamic user,
+  }) {
+    final actionText = action == 1 ? 'Realizar Préstamo' : 'Realizar Devolución';
+    final statusText = sessionActive ? 'Sesión Activa' : 'Sesión Inactiva';
+    
+    showDialog(
+      context: context,
+      barrierDismissible: false, // No permitir cerrar tocando fuera
+      builder: (context) => AlertDialog(
+        title: Text('Confirmar Acción', style: AppTextStyles.h3),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('QR Escaneado:', style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.bold)),
+            Text(qrCode, style: AppTextStyles.bodyMedium),
+            const SizedBox(height: 8),
+            Text('Estado Actual:', style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.bold)),
+            Text(statusText, style: AppTextStyles.bodyMedium),
+            const SizedBox(height: 8),
+            Text('Usuario:', style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.bold)),
+            Text(userName, style: AppTextStyles.bodyMedium),
+            const SizedBox(height: 16),
+            Text('¿Desea $actionText?', style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.bold)),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _resetScanner(); // Reactivar escáner sin ejecutar acción
+            },
+            child: Text('Cancelar', style: AppTextStyles.buttonSecondary),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _executeControlAction(user, qrCode, action, userName);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.azulTec,
+              foregroundColor: AppColors.blanco,
+            ),
+            child: Text('Aceptar', style: AppTextStyles.button),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showEquipmentConfirmationDialog({
+    required String qrCode,
+    required bool currentState,
+    required int action,
+    required String deviceAlias,
+    required dynamic user,
+  }) {
+    final actionText = action == 1 ? 'Encender Equipo' : 'Apagar Equipo';
+    final statusText = currentState ? 'Encendido' : 'Apagado';
+    
+    showDialog(
+      context: context,
+      barrierDismissible: false, // No permitir cerrar tocando fuera
+      builder: (context) => AlertDialog(
+        title: Text('Confirmar Acción', style: AppTextStyles.h3),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('QR Escaneado:', style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.bold)),
+            Text(qrCode, style: AppTextStyles.bodyMedium),
+            const SizedBox(height: 8),
+            Text('Equipo:', style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.bold)),
+            Text(deviceAlias, style: AppTextStyles.bodyMedium),
+            const SizedBox(height: 8),
+            Text('Estado Actual:', style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.bold)),
+            Text(statusText, style: AppTextStyles.bodyMedium),
+            const SizedBox(height: 16),
+            Text('¿Desea $actionText?', style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.bold)),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _resetScanner(); // Reactivar escáner sin ejecutar acción
+            },
+            child: Text('Cancelar', style: AppTextStyles.buttonSecondary),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _executeEquipmentAction(user, qrCode, action, deviceAlias);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.azulTec,
+              foregroundColor: AppColors.blanco,
+            ),
+            child: Text('Aceptar', style: AppTextStyles.button),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _executeControlAction(dynamic user, String qrCode, int action, String userName) async {
+    try {
+      print('Ejecutando controlLoan - QR: $qrCode, Action: $action, User: ${user.registration}');
+      
+      // Usar el mismo método para ambas acciones
+      final controlResponse = await ApiService.controlLoan(
+        user.registration,
+        qrCode,
+        action,
+      ).timeout(
+        const Duration(seconds: 15),
+        onTimeout: () => throw Exception('Timeout al procesar operación'),
+      );
+      
+      print('Respuesta del servidor: $controlResponse');
+      
+      if (controlResponse['success'] == true) {
+        final actionText = action == 1 ? 'Préstamo realizado' : 'Devolución realizada';
+        
+        print('Operación exitosa: $actionText');
+        
+        _showSuccessDialog(
+          'Control de Herramienta',
+          '$actionText\nUsuario: $userName',
+        );
+      } else {
+        print('Error en operación: ${controlResponse['message']}');
+        _showErrorDialog(controlResponse['message'] ?? 'Error al controlar préstamo');
+      }
+    } catch (e) {
+      print('Error en _executeControlAction: $e');
+      _showErrorDialog('Error de conexión: Verifique su conexión a internet');
     } finally {
-      // Breve pausa antes de permitir otro escaneo
-      await Future.delayed(const Duration(milliseconds: 500));
-      setState(() {
-        isProcessing = false;
-      });
+      _resetScanner();
     }
   }
 
-  void _showSuccessDialog(String title, String message) {
+  Future<void> _executeEquipmentAction(dynamic user, String qrCode, int action, String deviceAlias) async {
+    try {
+      final controlResponse = await ApiService.controlDevice(
+        user.registration,
+        qrCode,
+        action,
+      ).timeout(
+        const Duration(seconds: 10),
+        onTimeout: () => throw Exception('Timeout al controlar dispositivo'),
+      );
+      
+      if (controlResponse['success'] == true) {
+        final actionText = action == 1 ? 'Equipo encendido' : 'Equipo apagado';
+        final newStatus = action == 1 ? 'Encendido' : 'Apagado';
+        
+        print('Operación exitosa: $actionText');
+        
+        _showSuccessDialog(
+          'Control de Equipo',
+          '$deviceAlias\nEstado: $newStatus',
+        );
+      } else {
+        print('Error en operación: ${controlResponse['message']}');
+        _showErrorDialog(controlResponse['message'] ?? 'Error al controlar equipo');
+      }
+    } catch (e) {
+      print('Error en _executeEquipmentAction: $e');
+      _showErrorDialog('Error de conexión: Verifique su conexión a internet');
+    } finally {
+      _resetScanner();
+    }
+  }
+
+  void _showSuccessDialog(String title, [String? message]) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(title, style: AppTextStyles.h3),
-        content: Text(message, style: AppTextStyles.bodyMedium),
+        content: message != null ? Text(message, style: AppTextStyles.bodyMedium) : null,
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
