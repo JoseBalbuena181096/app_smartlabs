@@ -18,7 +18,7 @@ class ScannerScreen extends StatefulWidget {
 class _ScannerScreenState extends State<ScannerScreen> {
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  bool isToolsMode = true; // true = herramientas, false = equipos
+  bool isToolsMode = false; // true = herramientas, false = equipos
   bool isProcessing = false;
   String? lastScannedCode;
   DateTime? lastScanTime;
@@ -485,18 +485,18 @@ class _ScannerScreenState extends State<ScannerScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Herramientas',
+                      'Equipos',
                       style: AppTextStyles.bodyMedium.copyWith(
-                        color: isToolsMode ? AppColors.azulTec : AppColors.textoSecundario,
-                        fontWeight: isToolsMode ? FontWeight.w600 : FontWeight.w400,
+                        color: !isToolsMode ? AppColors.azulTec : AppColors.textoSecundario,
+                        fontWeight: !isToolsMode ? FontWeight.w600 : FontWeight.w400,
                       ),
                     ),
                     const SizedBox(width: 16),
                     Switch(
-                      value: !isToolsMode,
+                      value: isToolsMode,
                       onChanged: (value) {
                         setState(() {
-                          isToolsMode = !value;
+                          isToolsMode = value;
                         });
                       },
                       activeColor: AppColors.azulTec,
@@ -505,10 +505,10 @@ class _ScannerScreenState extends State<ScannerScreen> {
                     ),
                     const SizedBox(width: 16),
                     Text(
-                      'Equipos',
+                      'Herramientas',
                       style: AppTextStyles.bodyMedium.copyWith(
-                        color: !isToolsMode ? AppColors.azulTec : AppColors.textoSecundario,
-                        fontWeight: !isToolsMode ? FontWeight.w600 : FontWeight.w400,
+                        color: isToolsMode ? AppColors.azulTec : AppColors.textoSecundario,
+                        fontWeight: isToolsMode ? FontWeight.w600 : FontWeight.w400,
                       ),
                     ),
                   ],
