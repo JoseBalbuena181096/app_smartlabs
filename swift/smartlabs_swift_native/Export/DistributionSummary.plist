@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SmartLabsNative.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>buildNumber</key>
+			<string>1</string>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>E5AAC7F48C428A6996C43B9C0C8F4F021DDD6B1F</string>
+				<key>dateExpires</key>
+				<string>2025-08-20</string>
+				<key>type</key>
+				<string>Apple Development</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>63QJN3W2HF.com.smartlabs.native</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>63QJN3W2HF</string>
+				<key>get-task-allow</key>
+				<true/>
+			</dict>
+			<key>name</key>
+			<string>SmartLabsNative.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>9333453f-4597-4de5-b344-a87b937e9baa</string>
+				<key>dateExpires</key>
+				<string>2026-07-09</string>
+				<key>name</key>
+				<string>iOS Team Provisioning Profile: *</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>63QJN3W2HF</string>
+				<key>name</key>
+				<string>Renata Ponce</string>
+			</dict>
+			<key>versionNumber</key>
+			<string>1.0</string>
+		</dict>
+	</array>
+</dict>
+</plist>

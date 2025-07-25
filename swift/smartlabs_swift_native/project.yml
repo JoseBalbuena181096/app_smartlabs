@@ -1,0 +1,34 @@
+name: SmartLabsNative
+options:
+  bundleIdPrefix: com.smartlabs
+  deploymentTarget:
+    iOS: "15.0"
+  developmentLanguage: es
+  
+targets:
+  SmartLabsNative:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: SmartLabsNative
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.smartlabs.native
+      DEVELOPMENT_TEAM: 63QJN3W2HF
+      CODE_SIGN_STYLE: Automatic
+      INFOPLIST_FILE: SmartLabsNative/Info.plist
+    dependencies:
+      - framework: UIKit.framework
+      - framework: Foundation.framework
+      - framework: AVFoundation.framework
+      - framework: CoreGraphics.framework
+
+schemes:
+  SmartLabsNative:
+    build:
+      targets:
+        SmartLabsNative: all
+    run:
+      config: Debug
+    archive:
+      config: Release

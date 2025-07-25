@@ -1,0 +1,143 @@
+2025-07-24 23:16:40 +0000 [MT] Initial pipeline context: <IDEDistributionProcessingPipelineContext: 0x111053eb0; archive(resolved)="<IDEArchive: 0x1443058b0>", distributionTask(resolved)="2", distributionDestination(resolved)="1", distributionMethod(resolved)="<IDEDistributionMethodDevelopmentSigned: 0x10f7c7450>", team(resolved)="<IDEProvisioningBasicTeam: 0x110c4e480; teamID='63QJN3W2HF', teamName='Renata Ponce'>">
+	Chain (14, self inclusive):
+	<IDEDistributionProcessingPipelineContext: 0x111053eb0; archive = "<IDEArchive: 0x1443058b0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x10f7c7450>", team="<IDEProvisioningBasicTeam: 0x110c4e480; teamID='63QJN3W2HF', teamName='Renata Ponce'>">
+	<IDEDistributionProcessingPipelineContext: 0x11104b9b0; archive = "<IDEArchive: 0x1443058b0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x10f7c7450>", team="<IDEProvisioningBasicTeam: 0x110c4e480; teamID='63QJN3W2HF', teamName='Renata Ponce'>">
+	<IDEDistributionContext: 0x111057a30; archive = "<IDEArchive: 0x1443058b0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x10f7c7450>", team="<IDEProvisioningBasicTeam: 0x110c4e480; teamID='63QJN3W2HF', teamName='Renata Ponce'>">
+	<IDEDistributionContext: 0x10f6df6a0; archive = "<IDEArchive: 0x1443058b0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x10f7c7450>", team="<IDEProvisioningBasicTeam: 0x110c4e480; teamID='63QJN3W2HF', teamName='Renata Ponce'>">
+	<IDEDistributionContext: 0x110c4f8c0; archive = "<IDEArchive: 0x1443058b0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x10f7c7450>", team="<IDEProvisioningBasicTeam: 0x110c4e480; teamID='63QJN3W2HF', teamName='Renata Ponce'>">
+	<IDEDistributionContext: 0x10f6ce5b0; archive = "<IDEArchive: 0x1443058b0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x10f7c7450>", team="<IDEProvisioningBasicTeam: 0x110c4e480; teamID='63QJN3W2HF', teamName='Renata Ponce'>">
+	<IDEDistributionContext: 0x10f4ac800; archive = "<IDEArchive: 0x1443058b0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x10f7c7450>", team="<IDEProvisioningBasicTeam: 0x110c4e480; teamID='63QJN3W2HF', teamName='Renata Ponce'>">
+	<IDEDistributionContext: 0x10f4ac5f0; archive = "<IDEArchive: 0x1443058b0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x10f7c7450>", team="<IDEProvisioningBasicTeam: 0x110c4e480; teamID='63QJN3W2HF', teamName='Renata Ponce'>">
+	<IDEDistributionContext: 0x110c50260; archive = "<IDEArchive: 0x1443058b0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x10f7c7450>", team="<IDEProvisioningBasicTeam: 0x110c4e480; teamID='63QJN3W2HF', teamName='Renata Ponce'>">
+	<IDEDistributionContext: 0x110cab7a0; archive = "<IDEArchive: 0x1443058b0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x10f7c7450>", team="(null)">
+	<IDEDistributionContext: 0x110c50f10; archive = "<IDEArchive: 0x1443058b0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x10f7c7450>", team="(null)">
+	<IDEDistributionContext: 0x110d2cf40; archive = "<IDEArchive: 0x1443058b0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x10f7c7450>", team="(null)">
+	<IDEDistributionContext: 0x10f47fee0; archive = "<IDEArchive: 0x1443058b0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x10f7c7450>", team="(null)">
+	<IDEDistributionContext: 0x144306260; archive = "<IDEArchive: 0x1443058b0>", distributionMethod="(null)", team="(null)">
+</IDEDistributionProcessingPipelineContext: 0x111053eb0>
+2025-07-24 23:16:40 +0000 [MT] Processing step: IDEDistributionCreateDestRootStep
+2025-07-24 23:16:40 +0000 [MT] Processing step: IDEDistributionCopyItemStep
+2025-07-24 23:16:40 +0000 [MT] Running /usr/bin/ditto '-V' '/Users/Renata/Desktop/JOSETEC/smartlabs_swift_native/SmartLabsNative.xcarchive/Products/Applications/SmartLabsNative.app' '/var/folders/lt/cpykcvj53lj1jmgs8mqvxngr0000gp/T/XcodeDistPipeline.~~~nju2N4/Root/Payload/SmartLabsNative.app'
+2025-07-24 23:16:40 +0000  >>> Copying /Users/Renata/Desktop/JOSETEC/smartlabs_swift_native/SmartLabsNative.xcarchive/Products/Applications/SmartLabsNative.app 
+2025-07-24 23:16:40 +0000  copying file ./_CodeSignature/CodeResources ... 
+2025-07-24 23:16:40 +0000  3625 bytes for ./_CodeSignature/CodeResources
+2025-07-24 23:16:40 +0000  copying file ./AppIcon60x60@2x.png ... 
+2025-07-24 23:16:40 +0000  11864 bytes for ./AppIcon60x60@2x.png
+2025-07-24 23:16:40 +0000  copying file ./SmartLabsNative ... 
+2025-07-24 23:16:40 +0000  268608 bytes for ./SmartLabsNative
+2025-07-24 23:16:40 +0000  copying file ./Assets.car ... 
+2025-07-24 23:16:40 +0000  517839 bytes for ./Assets.car
+2025-07-24 23:16:40 +0000  copying file ./AppIcon76x76@2x~ipad.png ... 
+2025-07-24 23:16:40 +0000  15407 bytes for ./AppIcon76x76@2x~ipad.png
+2025-07-24 23:16:40 +0000  copying file ./LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib ... 
+2025-07-24 23:16:40 +0000  3260 bytes for ./LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib
+2025-07-24 23:16:40 +0000  copying file ./LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib ... 
+2025-07-24 23:16:40 +0000  924 bytes for ./LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib
+2025-07-24 23:16:40 +0000  copying file ./LaunchScreen.storyboardc/Info.plist ... 
+2025-07-24 23:16:40 +0000  258 bytes for ./LaunchScreen.storyboardc/Info.plist
+2025-07-24 23:16:40 +0000  copying file ./embedded.mobileprovision ... 
+2025-07-24 23:16:40 +0000  12262 bytes for ./embedded.mobileprovision
+2025-07-24 23:16:40 +0000  copying file ./Info.plist ... 
+2025-07-24 23:16:40 +0000  2009 bytes for ./Info.plist
+2025-07-24 23:16:40 +0000  copying file ./PkgInfo ... 
+2025-07-24 23:16:40 +0000  8 bytes for ./PkgInfo
+2025-07-24 23:16:40 +0000 [MT] /usr/bin/ditto exited with 0
+2025-07-24 23:16:40 +0000 [MT] Processing step: IDEDistributionEmbedProfileStep
+2025-07-24 23:16:40 +0000 [MT] Processing step: IDEDistributionInfoPlistStep
+2025-07-24 23:16:40 +0000 [MT] Skipping step: IDEDistributionInfoPlistStep because it said so
+2025-07-24 23:16:40 +0000 [MT] Processing step: IDEDistributionAppThinningPlistStep
+2025-07-24 23:16:40 +0000 [MT] Skipping step: IDEDistributionAppThinningPlistStep because it said so
+2025-07-24 23:16:40 +0000 [MT] Processing step: IDEDistributionSymbolsStep
+2025-07-24 23:16:40 +0000 [MT] Skipping step: IDEDistributionSymbolsStep because it said so
+2025-07-24 23:16:40 +0000 [MT] Processing step: IDEDistributionAppThinningStep
+2025-07-24 23:16:40 +0000 [MT] Skipping step: IDEDistributionAppThinningStep because it said so
+2025-07-24 23:16:40 +0000 [MT] Processing step: IDEDistributionArchThinningStep
+2025-07-24 23:16:40 +0000 [MT] Item /Users/Renata/Desktop/JOSETEC/smartlabs_swift_native/SmartLabsNative.xcarchive/Products/Applications/SmartLabsNative.app doesn't have the entitlement com.apple.developer.web-browser-engine.host enabled, returning ["arm64e"]
+2025-07-24 23:16:40 +0000 [MT] Archs to thin for item /Users/Renata/Desktop/JOSETEC/smartlabs_swift_native/SmartLabsNative.xcarchive/Products/Applications/SmartLabsNative.app are ["arm64e"]
+2025-07-24 23:16:40 +0000 [MT] Running /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo '/var/folders/lt/cpykcvj53lj1jmgs8mqvxngr0000gp/T/XcodeDistPipeline.~~~nju2N4/Root/Payload/SmartLabsNative.app/SmartLabsNative' '-verify_arch' 'arm64e'
+2025-07-24 23:16:40 +0000 [MT] /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo exited with 1
+2025-07-24 23:16:40 +0000 [MT] Skipping architecture thinning for item "SmartLabsNative" because arch "arm64e" wasn't found
+2025-07-24 23:16:40 +0000 [MT] Processing step: IDEDistributionODRStep
+2025-07-24 23:16:40 +0000 [MT] Processing step: IDEDistributionStripXattrsStep
+2025-07-24 23:16:40 +0000 [MT] Skipping stripping extended attributes because the codesign step will strip them.
+2025-07-24 23:16:40 +0000 [MT] Processing step: IDEDistributionCodesignStep
+2025-07-24 23:16:40 +0000 [MT] Entitlements for <IDEDistributionItem: 0x1442aa6c0; bundleID='com.smartlabs.native', path='<DVTFilePath:0x144305f20:'/Users/Renata/Desktop/JOSETEC/smartlabs_swift_native/SmartLabsNative.xcarchive/Products/Applications/SmartLabsNative.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x110ca0830; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x111042b50; name='Apple Development: poncerenata@hotmail.com (C3C2A3BY8J)', hash='E5AAC7F48C428A6996C43B9C0C8F4F021DDD6B1F', serialNumber='2A46EE8458D00090B95EFD894A2C2F4B', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2024-08-21 00:03:44 +0000''>', entitlements='{
+    "application-identifier" = "63QJN3W2HF.com.smartlabs.native";
+    "com.apple.developer.team-identifier" = 63QJN3W2HF;
+    "get-task-allow" = 1;
+}', teamID='63QJN3W2HF', identifier='com.smartlabs.native', executablePath='<DVTFilePath:0x110d2a360:'/Users/Renata/Desktop/JOSETEC/smartlabs_swift_native/SmartLabsNative.xcarchive/Products/Applications/SmartLabsNative.app/SmartLabsNative'>', hardenedRuntime='0'>'>: {
+    "application-identifier" = "63QJN3W2HF.com.smartlabs.native";
+    "com.apple.developer.team-identifier" = 63QJN3W2HF;
+    "get-task-allow" = 1;
+}
+2025-07-24 23:16:40 +0000 [MT] Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
+2025-07-24 23:16:40 +0000 [MT] Entitlements for <IDEDistributionItem: 0x1442aa6c0; bundleID='com.smartlabs.native', path='<DVTFilePath:0x144305f20:'/Users/Renata/Desktop/JOSETEC/smartlabs_swift_native/SmartLabsNative.xcarchive/Products/Applications/SmartLabsNative.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x110ca0830; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x111042b20; name='Apple Development: poncerenata@hotmail.com (C3C2A3BY8J)', hash='E5AAC7F48C428A6996C43B9C0C8F4F021DDD6B1F', serialNumber='2A46EE8458D00090B95EFD894A2C2F4B', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2024-08-21 00:03:44 +0000''>', entitlements='{
+    "application-identifier" = "63QJN3W2HF.com.smartlabs.native";
+    "com.apple.developer.team-identifier" = 63QJN3W2HF;
+    "get-task-allow" = 1;
+}', teamID='63QJN3W2HF', identifier='com.smartlabs.native', executablePath='<DVTFilePath:0x110d2a360:'/Users/Renata/Desktop/JOSETEC/smartlabs_swift_native/SmartLabsNative.xcarchive/Products/Applications/SmartLabsNative.app/SmartLabsNative'>', hardenedRuntime='0'>'> are: {
+    "application-identifier" = "63QJN3W2HF.com.smartlabs.native";
+    "com.apple.developer.team-identifier" = 63QJN3W2HF;
+    "get-task-allow" = 1;
+}
+2025-07-24 23:16:40 +0000 [MT] Writing entitlements for <IDEDistributionItem: 0x1442aa6c0; bundleID='com.smartlabs.native', path='<DVTFilePath:0x144305f20:'/Users/Renata/Desktop/JOSETEC/smartlabs_swift_native/SmartLabsNative.xcarchive/Products/Applications/SmartLabsNative.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x110ca0830; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x110d99260; name='Apple Development: poncerenata@hotmail.com (C3C2A3BY8J)', hash='E5AAC7F48C428A6996C43B9C0C8F4F021DDD6B1F', serialNumber='2A46EE8458D00090B95EFD894A2C2F4B', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2024-08-21 00:03:44 +0000''>', entitlements='{
+    "application-identifier" = "63QJN3W2HF.com.smartlabs.native";
+    "com.apple.developer.team-identifier" = 63QJN3W2HF;
+    "get-task-allow" = 1;
+}', teamID='63QJN3W2HF', identifier='com.smartlabs.native', executablePath='<DVTFilePath:0x110d2a360:'/Users/Renata/Desktop/JOSETEC/smartlabs_swift_native/SmartLabsNative.xcarchive/Products/Applications/SmartLabsNative.app/SmartLabsNative'>', hardenedRuntime='0'>'> to: /var/folders/lt/cpykcvj53lj1jmgs8mqvxngr0000gp/T/XcodeDistPipeline.~~~nju2N4/entitlements~~~hjJ0sF
+2025-07-24 23:16:40 +0000 [MT] invoking codesign: <NSConcreteTask: 0x1110430a0; launchPath='/usr/bin/codesign', arguments='(
+    "-f",
+    "-s",
+    E5AAC7F48C428A6996C43B9C0C8F4F021DDD6B1F,
+    "--entitlements",
+    "/var/folders/lt/cpykcvj53lj1jmgs8mqvxngr0000gp/T/XcodeDistPipeline.~~~nju2N4/entitlements~~~hjJ0sF",
+    "--preserve-metadata=identifier,flags,runtime",
+    "--generate-entitlement-der",
+    "--strip-disallowed-xattrs",
+    "-vvv",
+    "/var/folders/lt/cpykcvj53lj1jmgs8mqvxngr0000gp/T/XcodeDistPipeline.~~~nju2N4/Root/Payload/SmartLabsNative.app"
+)'>
+2025-07-24 23:16:40 +0000 [MT] codesign output: /var/folders/lt/cpykcvj53lj1jmgs8mqvxngr0000gp/T/XcodeDistPipeline.~~~nju2N4/Root/Payload/SmartLabsNative.app: replacing existing signature
+/var/folders/lt/cpykcvj53lj1jmgs8mqvxngr0000gp/T/XcodeDistPipeline.~~~nju2N4/Root/Payload/SmartLabsNative.app: signed app bundle with Mach-O thin (arm64) [com.smartlabs.native]
+2025-07-24 23:16:40 +0000 [MT] Processing step: IDEDistributionZipODRItemStep
+2025-07-24 23:16:40 +0000 [MT] Skipping step: IDEDistributionZipODRItemStep because it said so
+2025-07-24 23:16:40 +0000 [MT] Processing step: IDEDistributionCreateIPAStep
+2025-07-24 23:16:40 +0000 [MT] Running /usr/bin/ditto '-V' '-c' '-k' '--norsrc' '/var/folders/lt/cpykcvj53lj1jmgs8mqvxngr0000gp/T/XcodeDistPipeline.~~~nju2N4/Root' '/var/folders/lt/cpykcvj53lj1jmgs8mqvxngr0000gp/T/XcodeDistPipeline.~~~nju2N4/Packages/SmartLabsNative.ipa'
+2025-07-24 23:16:40 +0000  >>> Copying /var/folders/lt/cpykcvj53lj1jmgs8mqvxngr0000gp/T/XcodeDistPipeline.~~~nju2N4/Root 
+2025-07-24 23:16:40 +0000  copying file ./Payload/SmartLabsNative.app/_CodeSignature/CodeResources ... 
+2025-07-24 23:16:40 +0000  3625 bytes for ./Payload/SmartLabsNative.app/_CodeSignature/CodeResources
+2025-07-24 23:16:40 +0000  copying file ./Payload/SmartLabsNative.app/AppIcon60x60@2x.png ... 
+2025-07-24 23:16:40 +0000  11864 bytes for ./Payload/SmartLabsNative.app/AppIcon60x60@2x.png
+2025-07-24 23:16:40 +0000  copying file ./Payload/SmartLabsNative.app/SmartLabsNative ... 
+2025-07-24 23:16:40 +0000  268608 bytes for ./Payload/SmartLabsNative.app/SmartLabsNative
+copying file ./Payload/SmartLabsNative.app/Assets.car ... 
+2025-07-24 23:16:40 +0000  517839 bytes for ./Payload/SmartLabsNative.app/Assets.car
+2025-07-24 23:16:40 +0000  copying file ./Payload/SmartLabsNative.app/AppIcon76x76@2x~ipad.png ... 
+2025-07-24 23:16:40 +0000  15407 bytes for ./Payload/SmartLabsNative.app/AppIcon76x76@2x~ipad.png
+2025-07-24 23:16:40 +0000  copying file ./Payload/SmartLabsNative.app/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib ... 
+2025-07-24 23:16:40 +0000  3260 bytes for ./Payload/SmartLabsNative.app/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib
+2025-07-24 23:16:40 +0000  copying file ./Payload/SmartLabsNative.app/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib ... 
+2025-07-24 23:16:40 +0000  924 bytes for ./Payload/SmartLabsNative.app/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib
+copying file ./Payload/SmartLabsNative.app/LaunchScreen.storyboardc/Info.plist ... 
+2025-07-24 23:16:40 +0000  258 bytes for ./Payload/SmartLabsNative.app/LaunchScreen.storyboardc/Info.plist
+2025-07-24 23:16:40 +0000  copying file ./Payload/SmartLabsNative.app/embedded.mobileprovision ... 
+2025-07-24 23:16:40 +0000  12262 bytes for ./Payload/SmartLabsNative.app/embedded.mobileprovision
+2025-07-24 23:16:40 +0000  copying file ./Payload/SmartLabsNative.app/Info.plist ... 
+2025-07-24 23:16:40 +0000  2009 bytes for ./Payload/SmartLabsNative.app/Info.plist
+2025-07-24 23:16:40 +0000  copying file ./Payload/SmartLabsNative.app/PkgInfo ... 
+2025-07-24 23:16:40 +0000  8 bytes for ./Payload/SmartLabsNative.app/PkgInfo
+2025-07-24 23:16:40 +0000 [MT] /usr/bin/ditto exited with 0
+2025-07-24 23:16:40 +0000 [MT] Processing step: IDEDistributionAppStoreInformationStep
+2025-07-24 23:16:40 +0000 [MT] Skipping step: IDEDistributionAppStoreInformationStep because it said so
+2025-07-24 23:16:40 +0000 [MT] Processing step: IDEDistributionGenerateProcessedDistributionItems
+2025-07-24 23:16:40 +0000 [MT] IDEDistributionItem init <DVTFilePath:0x110d43940:'/var/folders/lt/cpykcvj53lj1jmgs8mqvxngr0000gp/T/XcodeDistPipeline.~~~nju2N4/Root/Payload/SmartLabsNative.app'>
+2025-07-24 23:16:40 +0000 [MT] Processing step: IDEDistributionCreateManifestStep
